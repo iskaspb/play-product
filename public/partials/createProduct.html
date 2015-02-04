@@ -1,0 +1,59 @@
+<div ng-controller="CreateProductCtrl as cpc">
+    <h1>Create Product</h1>
+
+    <form id="CreateProductForm" name="CreateProductForm" class="form-horizontal" role="form"
+          ng-submit="cpc.createProduct()">
+        <legend class="sm-col-12">Basic Information</legend>
+
+        <div class="form-group">
+            <label id="lbl_id" for="Id" class="col-sm-4 control-label">Id</label>
+
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="id" id="id" placeholder=""
+                       ng-model="cpc.product.Id">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label id="lbl_title" for="title" class="col-sm-4 control-label">Title</label>
+
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="title" id="title" placeholder=""
+                       ng-model="cpc.product.Title">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label id="lbl_price" for="price" class="col-sm-4 control-label"
+                   is-required="CreateProductForm.price">Price</label>
+
+            <div class="col-sm-8">
+                <input type="number" class="form-control" name="price" id="price"
+                       ng-model="cpc.product.Price">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label id="lbl_cost" for="cost" class="col-sm-4 control-label"
+                   is-required="CreateProductForm.cost">Cost</label>
+
+            <div class="col-sm-8">
+                <input type="number" class="form-control" name="cost" id="cost"
+                       ng-model="cpc.product.Cost">
+            </div>
+        </div>
+
+        <pre>{{ cpc.product | json }}</pre>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8 text-right">
+                <a ng-href="/#/" id="btn_cancel" class="btn btn-warning">Cancel</a>
+
+                <button type="submit" class="btn btn-success" id="btn_create">Create Product</button>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+

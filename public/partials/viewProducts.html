@@ -1,0 +1,69 @@
+
+<div ng-controller="ProductCtrl as pc">
+        <div class="jumbotron">
+            <h2>Manage Products</h2>
+        </div>
+
+        <div>
+            <div class="form-group">
+                <h3>
+                    Products
+                    <a ng-href="/#/products/create" class="btn btn-primary pull-right" id="btn_product_create">Add Product</a>
+                </h3>
+                <hr>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" ng-model="searchText" placeholder="Type here to filter Products...">
+                <hr>
+            </div>
+
+            <table id="product_list" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Cost</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="prod in pc.products | filter:searchText">
+                    <td>
+                        {{ prod.Id }}
+                    </td>
+                    <td>
+                        {{ prod.Title }}
+                    </td>
+                    <td>
+                        {{ prod.Price }}
+                    </td>
+                    <td>
+                        {{ prod.Cost }}
+                    </td>
+                    <td>
+                        <a ng-href="/#/products/edit/{{prod.Id}}" class="btn btn-success pull-right" id="btn_product_update">Edit Product</a>
+                    </td>
+                </tr>
+                <tr ng-hide="pc.products.length">
+                    <td colspan="3">
+                        <p class="text-center">No Products Found</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h3>
+                Debug
+            </h3>
+            <hr>
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Json Data <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <pre>{{ pc.products | json }}</pre>
+                </accordion-group>
+            </accordion>
+        </div>
+
+    </div>
