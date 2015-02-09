@@ -16,7 +16,10 @@ angular.module('myApp.routeConfig', ['ngRoute'])
     .config ($routeProvider) ->
         $routeProvider
             .when('/', {
-                templateUrl: '/assets/partials/viewProducts.html'
+#                templateUrl: '/assets/partials/viewProducts.html'
+#            })
+#            .when('/products/catalog', {
+                templateUrl: '/assets/partials/catalog.html'
             })
             .when('/products/create', {
                 templateUrl: '/assets/partials/createProduct.html'
