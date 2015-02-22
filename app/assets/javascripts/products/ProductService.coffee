@@ -52,4 +52,19 @@ class ProductService
             )
       deferred.promise
 
+    removeProduct: (product) ->
+      @$log.debug "removeProduct #{angular.toJson(product, true)}"
+      deferred = @$q.defer()
+
+      @$http.post("/removeProduct", product)
+      .success((data, status, headers) =>
+              @$log.info("Successfully removed Product - status #{status}")
+              deferred.resolve(data)
+            )
+      .error((data, status, header) =>
+              @$log.error("Failed to remove product - status #{status}")
+              deferred.reject(data)
+            )
+      deferred.promise
+
 servicesModule.service('ProductService', ProductService)

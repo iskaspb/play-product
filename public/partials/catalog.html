@@ -1,98 +1,96 @@
 <div class='container-fluid' ng-controller="CatalogCtrl as ctrl">
-    <div class="form-group">
-        <label id="lbl_title_or_id" for="title_or_id" class="col-sm-4 control-label">Search Product Title or ID</label>
-
-        <div class="col-sm-8">
-            <input
-                    ng-keyup="$event.keyCode == 13 && ctrl.updateTitleOrId()"
-                    type="text"
-                    ng-model="ctrl.selected"
-                    typeahead="hint for hint in ctrl.hints | filter:$viewValue | limitTo:8"
-                    typeahead-on-select='ctrl.onSelect($item, $model, $label)'
-                    name="title_or_id"
-                    id="title_or_id"
-                    class="form-control">
-        </div>
-    </div>
-    <form id="CatalogForm" name="CatalogForm" class="form-horizontal" role="form">
-        <legend class="sm-col-12">Product Catalog</legend>
-
-        <div class="form-group">
-            <label id="lbl_id" for="id" class="col-sm-4 control-label">ID</label>
-
-            <div class="col-sm-8">
+    <style>
+        table, th, td {
+            padding: 5px;
+        }
+        table {
+            border-spacing: 5px;
+        }
+    </style>
+    <table style="width:100%">
+        <tr>
+            <td ><b>Search ID or Title</b></td>
+            <td>
                 <input
-                        ng-keyup="$event.keyCode == 13 && ctrl.submitProduct()"
-                        ng-disabled="true"
                         type="text"
+                        ng-keyup="$event.keyCode == 13 && ctrl.updateTitleOrId()"
+                        ng-model="ctrl.selected"
+                        typeahead="hint for hint in ctrl.hints | filter:$viewValue | limitTo:8"
+                        typeahead-on-select='ctrl.onSelect($item, $model, $label)'
+                        name="title_or_id"
+                        id="title_or_id"
+                        typeahead-editable="false"
+                        class="form-control"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><legend class="sm-col-12">Product</legend></td>
+        </tr>
+        <tr>
+            <td ><b>ID</b></td>
+            <td>
+                <input
+                        type="text"
+                        ng-keyup="$event.keyCode == 13 && ctrl.submitProduct()"
                         class="form-control"
-                        name="id" id="id" placeholder=""
+                        name="id"
+                        id="id" placeholder=""
                         ng-model="ctrl.product.Id"/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label id="lbl_title" for="title" class="col-sm-4 control-label">Title</label>
-
-            <div class="col-sm-8">
+            </td>
+        </tr>
+        <tr>
+            <td ><b>Title</b></td>
+            <td>
                 <input
-                        ng-keyup="$event.keyCode == 13 && ctrl.submitProduct()"
                         type="text"
+                        ng-keyup="$event.keyCode == 13 && ctrl.submitProduct()"
                         class="form-control"
                         name="title"
                         id="title"
                         placeholder=""
                         ng-model="ctrl.product.Title"/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label
-                    id="lbl_price"
-                    for="price"
-                    class="col-sm-4 control-label"
-                    is-required="CatalogForm.price">Price</label>
-
-            <div class="col-sm-8">
+            </td>
+        </tr>
+        <tr>
+            <td ><b>Price</b></td>
+            <td>
                 <input
-                        ng-keyup="$event.keyCode == 13 && ctrl.submitProduct()"
                         type="text"
+                        ng-keyup="$event.keyCode == 13 && ctrl.submitProduct()"
                         class="form-control"
                         name="price"
                         id="price"
                         ng-model="ctrl.product.Price"/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label
-                    id="lbl_cost"
-                    for="cost"
-                    class="col-sm-4 control-label"
-                    is-required="CatalogForm.cost">Cost</label>
-
-            <div class="col-sm-8">
+            </td>
+        </tr>
+        <tr>
+            <td ><b>Cost</b></td>
+            <td>
                 <input
-                        ng-keyup="$event.keyCode == 13 && ctrl.submitProduct()"
                         type="text"
+                        ng-keyup="$event.keyCode == 13 && ctrl.submitProduct()"
                         class="form-control"
                         name="cost"
                         id="cost"
                         ng-model="ctrl.product.Cost"/>
-            </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8 text-right">
+
+            <button ng-click="ctrl.submitProduct()" class="btn btn-success" id="btn_submit">Submit Product</button>
+            <!--button ng-click="ctrl.getAllProducts()" class="btn btn-success" id="btn_submit">Reload</button-->
+
+            <button
+                    ng-click="ctrl.removeProduct() && (ctrl.product = null) && angular.element('btn_submit').focus()"
+                    class="btn btn-warning" id="btn_remove">Remove Product</button>
+
+            <button
+                    ng-click="ctrl.product = {'Id': null, 'Title': null, 'Price': null, 'Cost': null} && angular.element('btn_submit').focus()"
+                    class="btn btn-warning" id="btn_reset">Clear Form</button>
+
         </div>
-
-        <pre>{{ ctrl.product | json }}</pre>
-
-        <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-8 text-right">
-                <!--a ng-href="/#/" id="btn_cancel" class="btn btn-warning">Cancel</a-->
-                <button ng-click="ctrl.submitProduct()" class="btn btn-success" id="btn_submit">Submit Product</button>
-
-                <button ng-click="ctrl.product = null && angular.element('btn_submit').focus()" class="btn btn-warning" id="btn_reset">Reset Form</button>
-
-            </div>
-        </div>
-    </form>
-
+    </div>
 </div>

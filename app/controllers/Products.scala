@@ -53,7 +53,7 @@ class Products extends Controller with MongoController {
           collection.insert(product).map {
             lastError =>
               logger.debug(s"Successfully inserted with LastError: $lastError")
-              Created(s"Product Created")
+              Created(s"Product Created: " + product.toString())
           }
       }.getOrElse(Future.successful(BadRequest("invalid json")))
   }
@@ -67,7 +67,21 @@ class Products extends Controller with MongoController {
           collection.update(nameSelector, product).map {
             lastError =>
               logger.debug(s"Successfully updated with LastError: $lastError")
-              Created(s"Product Updated")
+              Created(s"Product Updated: " + product.toString())
+          }
+      }.getOrElse(Future.successful(BadRequest("invalid json")))
+  }
+
+  def removeProduct = Action.async(parse.json) {
+    request =>
+      request.body.validate[Product].map {
+        product =>
+          // find our product by productId
+          val nameSelector = Json.obj("Id" -> product.Id)
+          collection.remove(nameSelector).map {
+            lastError =>
+              logger.debug(s"Successfully removed with LastError: $lastError")
+              Created(s"Product Removed: " + product.toString())
           }
       }.getOrElse(Future.successful(BadRequest("invalid json")))
   }
